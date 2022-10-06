@@ -29,3 +29,7 @@ Debugging such program is hard for 2 reasons:
 Due to those reasons current DevTools are pretty much irrelevant, in order to provide both Execution Tracing (trace what's currently running) and Stack Tracing (trace what's left to do) we would need a way of knowing where specific functions and objects were defined in source code (potentially source mapped).
 
 Assuming that such api is exposed we would be able to log or tell to a debugger what's currently running and we would be able to produce proper stack-like traces in case of errors, both of which are impossible to obtain at the moment.
+
+## Differences from React Fiber
+
+The React Fiber will have only the issue 1, it won't have 2 as the component stack is a call stack and suspension happens via throwing and catching, note that the design of such a fiber is highly inefficient as a suspended computation will need to re-execute from the beginning (catch point) and it won't be able to provide stack safety
