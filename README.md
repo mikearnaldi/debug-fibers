@@ -33,3 +33,53 @@ Assuming that such api is exposed we would be able to log or tell to a debugger 
 ## Differences from React Fiber
 
 The React Fiber will have only the issue 1, it won't have 2 as the component stack is a call stack and suspension happens via throwing and catching, note that the design of such a fiber is highly inefficient as a suspended computation will need to re-execute from the beginning (catch point) and it won't be able to provide stack safety
+
+## Current Solution
+
+Add a `OpTraced` primitive like:
+
+```js
+class OpTraced {
+    constructor(self, trace) {
+        this.self = self
+        this.trace = trace
+    }
+}
+```
+
+Add to every op a function like:
+
+```js
+class OpMap {
+    constructor(self, f) {
+        this.self = self
+        this.f = f
+    }
+
+    withCallTrace(trace) {
+        return new OpTraced(this, trace)
+    }
+}
+```
+
+Declare a function like:
+
+```js
+function traced(obj, trace) {
+    if (typeof obj === "object" && obj !== null && "withCallTrace" in obj) {
+        return obj.withCallTrace(trace)
+    }
+    return obj
+}
+```
+
+Write a babel plugin (and tsc plugin, and swc plugin) that:
+
+1) Transforms `pipe(a, f, g)` to `g(f(a))`
+2) Transforms `f(a)` to `traced(f(a), "file:row:col")`
+
+Downsides:
+
+1) Dependent on build steps
+2) Adds a lot of overhead to potentially unrelated code
+3) Cannot be added to libraries (primarily because overhead of 2)
