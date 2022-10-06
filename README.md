@@ -26,7 +26,7 @@ Debugging such program is hard for 2 reasons:
 1) the fiber can suspend at any time
 2) the stack is held in memory and not in the call stack
 
-Due to those reasons current DevTools are pretty much irrelevant, in order to provide both Execution Tracing (trace what's currently running) and Stack Tracing (trace what's left to do) we would need a way of knowing where specific functions and objects were defined in source code (potentially source mapped).
+Due to those reasons current DevTools are pretty much irrelevant, in order to provide both Execution Tracing (trace what's currently running) and Stack Tracing (trace what's left to do) we would need a way of knowing where specific functions (and potentially objects) were defined in source code (potentially source mapped).
 
 Assuming that such api is exposed we would be able to log or tell to a debugger what's currently running and we would be able to produce proper stack-like traces in case of errors, both of which are impossible to obtain at the moment.
 
