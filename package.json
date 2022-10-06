@@ -1,0 +1,5 @@
+{
+    "name": "debug-fibers",
+    "private": true,
+    "type": "module"
+}
