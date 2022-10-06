@@ -1,6 +1,6 @@
 ## Description
 
-The file `main.mjs` showcase a minimized example of a program that uses a fiber runtime to perform execution in a stack safe a contention protected manner, there are 3 key components to the example:
+The file `main.mjs` showcase a minimized example of a program that uses a fiber runtime to perform execution in a stack safe & contention protected manner, there are 3 key components to the example:
 
 1) primitives and api definition
 2) program definition
